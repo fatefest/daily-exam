@@ -1,0 +1,18 @@
+server:
+  port: 8082
+
+dubbo:
+  application:
+    name: before-inparts-concumer
+    qos-enable: true
+    qos-port: 49090
+    qos-accept-foreign-ip: true
+  protocol:
+    port: 10001
+    name: dubbo
+  registry:
+    address: zookeeper://192.168.3.249:2181
+  consumer:
+    timeout: 30000
+    group: yunche
+    version: 1.0.0
