@@ -1,13 +1,16 @@
 package com.fest.exam.dubbo.consumer.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.yunche.config.service.DubboPartnerCheckService;
-import com.yunche.exception.PartnerExistException;
+import com.yunche.config.service.DubboCapitalPlanService;
 import com.yunche.framework.enums.CheckTyleEnum;
-import com.yunche.pojo.vo.PartnerReviewVo;
+import com.yunche.framework.result.ResultBean;
+import com.yunche.user.service.DubboPartnerCheckService;
+import com.yunche.user.vo.PartnerReviewVo;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @Author: yesitao
@@ -20,6 +23,8 @@ public class DubboPartnerCheckController {
 
     @Reference
     private DubboPartnerCheckService dubboPartnerCheckService;
+    @Reference
+    private DubboCapitalPlanService dubboCapitalPlanService;
 
     /**
      * 审核配置获取
@@ -29,7 +34,7 @@ public class DubboPartnerCheckController {
      */
     @GetMapping("/partnerCheck/{partnerId}")
     public List<PartnerReviewVo> findPartnerCheckByPartnerById(@PathVariable("partnerId") String partnerId)
-            throws NullPointerException, PartnerExistException{
+            throws NullPointerException{
         return dubboPartnerCheckService.findPartnerCheckByPartnerById(partnerId);
     }
 
@@ -43,7 +48,7 @@ public class DubboPartnerCheckController {
     @GetMapping("/partnerCheck/{type}/{partnerId}")
     public PartnerReviewVo findPartnerCheck(@PathVariable("partnerId") String partnerId,
                                             @PathVariable("type")CheckTyleEnum checkTyleEnum)
-            throws NullPointerException, PartnerExistException{
+            throws NullPointerException{
         PartnerReviewVo vo = dubboPartnerCheckService.findPartnerCheck(partnerId,checkTyleEnum);
         return vo;
     }
@@ -64,7 +69,7 @@ public class DubboPartnerCheckController {
             @RequestParam("userId") String userId,
             @RequestParam("type") CheckTyleEnum checkTyleEnum,
             @RequestParam("level") Integer level)
-           throws NullPointerException, PartnerExistException{
+           throws NullPointerException{
        return dubboPartnerCheckService.findEmployeeIsCheckType(partner,userId,checkTyleEnum,level);
    }
 
@@ -82,9 +87,34 @@ public class DubboPartnerCheckController {
             @RequestParam("partnerId") String partner,
             @RequestParam("userId") String userId,
             @RequestParam("type") CheckTyleEnum checkTyleEnum)
-            throws NullPointerException, PartnerExistException{
+            throws NullPointerException{
         return dubboPartnerCheckService.findEmployeeLevel(partner,userId,checkTyleEnum);
     }
 
+    @GetMapping("/getBankBaseRate")
+    public ResultBean getCapitalRateByCapitalPlanId(@RequestParam("financialProductId") String id){
+        try {
+            dubboCapitalPlanService.getCapitalRateByCapitalPlanId(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @GetMapping("/userCheckLevels/{type}/{partnerId}/{userId}")
+    public ResultBean userCheckLevels(@PathVariable("partnerId") String partnerId,
+                                      @PathVariable("userId") String userId,
+                                      @PathVariable("type") CheckTyleEnum checkTyleEnum){
+        PartnerReviewVo reviewVo = dubboPartnerCheckService.findPartnerCheck(partnerId,checkTyleEnum);
+        List<Integer> levels = new ArrayList<>();
+        if(reviewVo.getLevel()!=null){
+            levels = reviewVo.getLevelVOList()
+                    .stream()
+                    .filter(e->e.getEmployeeId().contains(userId))
+                    .map(e->(e.getCurrnetLevel()+1))
+                    .collect(Collectors.toList());
+        }
+        return ResultBean.ofSuccess(levels);
+    }
 
 }

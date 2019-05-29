@@ -9,15 +9,11 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>design-pattern</artifactId>
-    <dependencies>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.4</version>
-            <scope>compile</scope>
-        </dependency>
-    </dependencies>
+    <artifactId>exam-book</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>effective-java-3rd</module>
+    </modules>
 
 
 </project>

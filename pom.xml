@@ -14,6 +14,7 @@
         <module>dubbo-indepth</module>
         <module>cloud-family</module>
         <module>design-pattern</module>
+        <module>exam-book</module>
     </modules>
 
     <properties>

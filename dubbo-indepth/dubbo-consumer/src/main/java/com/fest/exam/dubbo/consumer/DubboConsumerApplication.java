@@ -5,6 +5,7 @@ import com.alibaba.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 /**
  * @Author: yesitao
@@ -15,6 +16,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 @EnableDubbo
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class,
         DruidDataSourceAutoConfigure.class})
+@EnableWebMvc
 public class DubboConsumerApplication {
     public static void main(String[] args) {
         SpringApplication.run(DubboConsumerApplication.class,args);
