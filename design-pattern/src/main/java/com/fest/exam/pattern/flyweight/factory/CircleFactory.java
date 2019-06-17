@@ -12,6 +12,11 @@ import java.util.concurrent.ConcurrentHashMap;
  * @Description: 圆工厂
  */
 public class CircleFactory {
+    /**
+     * 将具有通用特点的类使用缓存存储起来，在使用时从工厂中直接拿
+     * 拿出来修改赋值特点属性再使用
+     * 防止重复创建类似的对象
+     */
     private static final Map<String, Shape> circleCache = new ConcurrentHashMap<>();
 
     public static Shape getCircle(String color){

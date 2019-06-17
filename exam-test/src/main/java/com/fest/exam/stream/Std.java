@@ -12,7 +12,7 @@ public class Std implements Cloneable{
     private String name;
     private String age;
     private final ConstantClass constantClass;
-    public static final String[] a = {"a","b","c"};
+    private static final String[] a = {"a","b","c"};
 
     public Std(String name,String age,ConstantClass constantClass){
         this.name = name;

@@ -2,10 +2,12 @@ package com.fest.exam.lombok.launch;
 
 
 import com.fest.exam.lombok.annotation.Getter;
+import com.fest.exam.lombok.domain.TestExecutor;
 
 import javax.annotation.processing.Processor;
 import java.util.Iterator;
 import java.util.ServiceLoader;
+import java.util.function.Function;
 
 /**
  * @Author: yesitao
@@ -30,6 +32,5 @@ public class LombokMain {
             System.out.println(p);
         }
     }
-
 
 }
