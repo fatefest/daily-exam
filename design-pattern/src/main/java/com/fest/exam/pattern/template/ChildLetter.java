@@ -25,7 +25,7 @@ public class ChildLetter extends LetterTemplate {
 
     @Override
     protected void author() {
-
+        System.out.println("作者xxx");
     }
 
     @Override

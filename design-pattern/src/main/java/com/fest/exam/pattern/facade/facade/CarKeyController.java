@@ -20,6 +20,10 @@ public class CarKeyController {
         this.tyres = new Tyre();
     }
 
+    /**
+     * 门面模式要求一个子系统的外部与其内部的通信必须通过一个统一的门面(Facade)对象进行。
+     * 门面模式提供一个高层次的接口，使得子系统更易于使用。
+     */
     public void startTheCar(){
         System.out.println("别钥匙，启动车-->");
         engine.start();

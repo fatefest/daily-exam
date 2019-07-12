@@ -38,7 +38,7 @@ public class MyHouse {
         Class clz = Collectors.class;
         try {
             Constructor constructor = clz.getDeclaredConstructor();
-            //思域构造方法设置成可以访问
+            //私有构造方法设置成可以访问
             constructor.setAccessible(true);
             Collectors instance = (Collectors) constructor.newInstance();
             System.out.println(instance);
