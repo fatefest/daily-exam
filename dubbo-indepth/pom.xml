@@ -14,6 +14,7 @@
         <module>dubbo-provider</module>
         <module>dubbo-api</module>
         <module>javassist</module>
+        <module>rpc-simple</module>
     </modules>
 
     <dependencies>

@@ -2,8 +2,10 @@ package com.fest.exam.dubbo.consumer.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.yunche.config.service.DubboCapitalPlanService;
+import com.yunche.config.service.DubboCapitalService;
 import com.yunche.framework.enums.CheckTyleEnum;
 import com.yunche.framework.result.ResultBean;
+import com.yunche.user.service.DubboPartnerBusinessService;
 import com.yunche.user.service.DubboPartnerCheckService;
 import com.yunche.user.vo.PartnerReviewVo;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +27,10 @@ public class DubboPartnerCheckController {
     private DubboPartnerCheckService dubboPartnerCheckService;
     @Reference
     private DubboCapitalPlanService dubboCapitalPlanService;
+    @Reference
+    private DubboPartnerBusinessService dubboPartnerBusinessService;
+    @Reference
+    private DubboCapitalService dubboCapitalService;
 
     /**
      * 审核配置获取
@@ -116,5 +122,16 @@ public class DubboPartnerCheckController {
         }
         return ResultBean.ofSuccess(levels);
     }
+
+    @GetMapping("/partnerBusiness")
+    public ResultBean partnerBusiness(String partnerId){
+        return ResultBean.ofSuccess(dubboPartnerBusinessService.findPartnerBusiness(partnerId));
+    }
+
+    @GetMapping("/capital")
+    public ResultBean getCapital(String capitalId){
+        return ResultBean.ofSuccess(dubboCapitalService.queryCapitalById(capitalId));
+    }
+
 
 }

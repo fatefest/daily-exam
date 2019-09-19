@@ -3,7 +3,7 @@ server:
 
 dubbo:
   application:
-    name: before-inparts-concumer
+    name: before-inparts-consumer
     qos-enable: true
     qos-port: 49090
     qos-accept-foreign-ip: true
@@ -16,6 +16,7 @@ dubbo:
     timeout: 30000
     group: yunche
     version: 1.0.0
+    check: false
 
 swagger:
   enable: true

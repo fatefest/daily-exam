@@ -1,7 +1,7 @@
 package com.fest.exam.dubbo.consumer.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.fest.exam.dubbo.consumer.domain.TeamDealerQuery;
+import com.yunche.config.service.DubboDataFlowService;
 import com.yunche.customer.entity.CustomerBankCreditRecord;
 import com.yunche.external.service.BankCreditRecordService;
 import com.yunche.framework.result.ResultBean;
@@ -9,6 +9,7 @@ import com.yunche.user.entity.TbDealer;
 import com.yunche.user.service.DubboDealerService;
 import com.yunche.user.vo.DealerAcoountVO;
 import com.yunche.user.vo.DealerAllVO;
+import com.yunche.user.vo.DealerCostParameter;
 import com.yunche.user.vo.DealerPage;
 import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +27,8 @@ public class DubboDealerController {
     DubboDealerService dubboDealerService;
     @Reference
     BankCreditRecordService bankCreditRecordService;
+    @Reference
+    DubboDataFlowService dubboDataFlowService;
 
     @PostMapping("/dealers")
     public ResultBean findPartnerDealerById(@RequestBody DealerPage query) throws Exception {
@@ -61,5 +64,28 @@ public class DubboDealerController {
         CustomerBankCreditRecord customerBankCreditRecord = bankCreditRecordService.getByIdCard(id);
         return ResultBean.ofSuccess(customerBankCreditRecord);
     }
+
+    @GetMapping("/materialFlow/{productionId}")
+    public ResultBean getMaterialFlowTask(@PathVariable("productionId") String productionId) throws Exception {
+        return ResultBean.ofSuccess(dubboDataFlowService.getTbDataFlowDetailByProductId(productionId));
+    }
+
+    @GetMapping("/test")
+    public ResultBean test() throws Exception {
+        return ResultBean.ofSuccess("tttttt");
+    }
+
+    @GetMapping("/cost")
+    public ResultBean cost(String dealerId,String partnerId,Integer carType,Integer loanPeriod) throws Exception {
+        DealerCostParameter queryParam = new DealerCostParameter();
+        queryParam.setDealerId(dealerId);
+        queryParam.setPartnerId(partnerId);
+        queryParam.setCarType(carType);
+        queryParam.setLoanTime(loanPeriod);
+        queryParam.setBusinessArea(1);
+        return ResultBean.ofSuccess(dubboDealerService.queryDealerCostList(queryParam));
+    }
+
+
 
 }
