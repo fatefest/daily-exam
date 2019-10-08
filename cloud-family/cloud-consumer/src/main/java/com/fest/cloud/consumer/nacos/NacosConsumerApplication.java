@@ -1,6 +1,7 @@
 package com.fest.cloud.consumer.nacos;
 
 
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
@@ -35,6 +36,7 @@ public class NacosConsumerApplication {
         private String appName;
 
         @GetMapping("/echo/app-name")
+        @SentinelResource
         public String echoAppName(){
             //Access through the combination of LoadBalanceClient and RestTemplate
             ServiceInstance serviceInstance = loadBalancerClient.choose("service-provider");
