@@ -1,4 +1,4 @@
-package com.fest.cloud.registry.nacos;
+package com.fest.cloud.provider.nacos;
 
 
 import org.springframework.boot.SpringApplication;
@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @SpringBootApplication
 @EnableDiscoveryClient
-public class NacosApplication {
+public class NacosProviderApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(NacosApplication.class, args);
+        SpringApplication.run(NacosProviderApplication.class, args);
     }
 
     @RestController
