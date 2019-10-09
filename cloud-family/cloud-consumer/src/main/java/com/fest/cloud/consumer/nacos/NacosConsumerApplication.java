@@ -11,9 +11,9 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+
 
 /**
  * @Author: yesitao
@@ -35,12 +35,15 @@ public class NacosConsumerApplication {
         @Value("${spring.application.name}")
         private String appName;
 
+//        @Value("${spring.test.name}")
+        private String testName = "123";
+
         @GetMapping("/echo/app-name")
         @SentinelResource
         public String echoAppName(){
             //Access through the combination of LoadBalanceClient and RestTemplate
             ServiceInstance serviceInstance = loadBalancerClient.choose("service-provider");
-            String path = String.format("http://%s:%s/echo/%s",serviceInstance.getHost(),serviceInstance.getPort(),appName);
+            String path = String.format("http://%s:%s/echo/%s",serviceInstance.getHost(),serviceInstance.getPort(),appName+testName);
             System.out.println("request path:" +path);
             return restTemplate.getForObject(path,String.class);
         }
