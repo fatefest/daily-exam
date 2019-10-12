@@ -21,11 +21,4 @@ public class NacosProviderApplication {
         SpringApplication.run(NacosProviderApplication.class, args);
     }
 
-    @RestController
-    class EchoController {
-        @GetMapping(value = "/echo/{string}")
-        public String echo(@PathVariable String string) {
-            return string;
-        }
-    }
 }

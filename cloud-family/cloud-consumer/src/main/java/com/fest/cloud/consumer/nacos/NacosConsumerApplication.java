@@ -1,17 +1,11 @@
 package com.fest.cloud.consumer.nacos;
 
 
-import com.alibaba.csp.sentinel.annotation.SentinelResource;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 
@@ -22,40 +16,8 @@ import org.springframework.web.client.RestTemplate;
  */
 @SpringBootApplication
 @EnableDiscoveryClient
+@EnableFeignClients
 public class NacosConsumerApplication {
-
-    @RestController
-    public class NacosController{
-
-        @Autowired
-        private LoadBalancerClient loadBalancerClient;
-        @Autowired
-        private RestTemplate restTemplate;
-
-        @Value("${spring.application.name}")
-        private String appName;
-
-//        @Value("${spring.test.name}")
-        private String testName = "123";
-
-        @GetMapping("/echo/app-name")
-        @SentinelResource
-        public String echoAppName(){
-            //Access through the combination of LoadBalanceClient and RestTemplate
-            ServiceInstance serviceInstance = loadBalancerClient.choose("service-provider");
-            String path = String.format("http://%s:%s/echo/%s",serviceInstance.getHost(),serviceInstance.getPort(),appName+testName);
-            System.out.println("request path:" +path);
-            return restTemplate.getForObject(path,String.class);
-        }
-
-    }
-
-    //Instantiate RestTemplate Instance
-    @Bean
-    public RestTemplate restTemplate(){
-
-        return new RestTemplate();
-    }
 
     public static void main(String[] args) {
 
