@@ -24,6 +24,7 @@
         <module>cloud-registry</module>
         <module>cloud-provider</module>
         <module>cloud-consumer</module>
+        <module>cloud-gateway</module>
     </modules>
 
     <dependencies>

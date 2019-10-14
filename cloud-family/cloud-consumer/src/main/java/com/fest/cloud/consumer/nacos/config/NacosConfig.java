@@ -10,11 +10,12 @@ import org.springframework.web.client.RestTemplate;
  * @Description:
  */
 @Configuration
-public class NacosConfig {
+public class NacosConfig implements Config {
 
     @Bean
-    public RestTemplate restTemplate(){
+    public RestTemplate restTemplate() {
 
         return new RestTemplate();
     }
+
 }

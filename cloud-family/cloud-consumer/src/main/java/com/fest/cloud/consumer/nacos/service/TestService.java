@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 /**
  * 测试
  */
-@FeignClient(name = "service-provider",fallback = TestServiceImpl.class)
+@FeignClient(name = "service-provider", fallback = TestServiceImpl.class)
 public interface TestService {
 
     @GetMapping("/echo/{name}")

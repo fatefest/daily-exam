@@ -19,7 +19,7 @@ import javax.annotation.Resource;
  * @Description:
  */
 @RestController
-public class NacosController{
+public class NacosController {
 
     @Autowired
     private LoadBalancerClient loadBalancerClient;
@@ -37,7 +37,7 @@ public class NacosController{
 
     @GetMapping("/echo/app-name")
     @SentinelResource
-    public String echoAppName(){
+    public String echoAppName() {
         //Access through the combination of LoadBalanceClient and RestTemplate
         testName = applicationContext.getEnvironment().getProperty("user.name");
 //        ServiceInstance serviceInstance = loadBalancerClient.choose("service-provider");

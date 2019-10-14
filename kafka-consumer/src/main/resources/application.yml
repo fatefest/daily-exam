@@ -1,0 +1,25 @@
+kafka:
+  consumer:
+    concurrency: 10
+    topic:
+      flow: ff_test
+    enable:
+      auto:
+        commit: false
+    session:
+      timeout: 6000
+    auto:
+      commit:
+        interval: 100
+      offset:
+        reset: latest
+
+
+    group:
+      id: ff_test_group_id
+      factory: kafkaListenerContainerFactoryBussiness
+
+inparts:
+  kafka:
+    consumer:
+      servers: 192.168.2.18:9092

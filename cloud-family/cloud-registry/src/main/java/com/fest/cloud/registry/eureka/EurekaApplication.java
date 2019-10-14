@@ -5,7 +5,6 @@ package com.fest.cloud.registry.eureka;
 //import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 
 /**
- *
  * @author yesitao
  * @date 2019-5-15
  */
