@@ -12,3 +12,7 @@ spring:
     nacos:
       discovery:
         server-addr: ${nacos.addr}:${nacos.port}
+
+dubbo:
+  cloud:
+    subscribed-services: service-provider

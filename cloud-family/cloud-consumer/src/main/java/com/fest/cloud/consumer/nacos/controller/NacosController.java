@@ -2,6 +2,8 @@ package com.fest.cloud.consumer.nacos.controller;
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.fest.cloud.consumer.nacos.service.TestService;
+import com.fest.cloud.dubbo.service.NameService;
+import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.ServiceInstance;
@@ -29,7 +31,8 @@ public class NacosController {
     private RestTemplate restTemplate;
     @Autowired
     private ApplicationContext applicationContext;
-
+    @Reference(check = false)
+    private NameService nameService;
     @Value("${spring.application.name}")
     private String appName;
 
@@ -45,6 +48,13 @@ public class NacosController {
 //        System.out.println("request path:" +path);
 
         return testService.echo(testName);
+    }
+
+    @GetMapping("/name")
+    @SentinelResource
+    public String getName() {
+
+        return nameService.myName();
     }
 
 }

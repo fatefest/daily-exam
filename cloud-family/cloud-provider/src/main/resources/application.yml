@@ -9,3 +9,14 @@ spring:
       discovery:
         server-addr: 127.0.0.1:8848
 
+dubbo:
+  protocols:
+    dubbo:
+      name: dubbo
+      port: -1
+    rest:
+      name: rest
+      port: 9090
+      server: netty
+  registry:
+    address: spring-cloud://localhost

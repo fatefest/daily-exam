@@ -11,6 +11,7 @@ import com.sun.tools.javac.util.*;
 import com.fest.exam.lombok.annotation.Getter;
 
 import javax.annotation.processing.*;
+import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 import javax.tools.Diagnostic;
@@ -21,6 +22,8 @@ import java.util.Set;
  * @Date: 2019/4/25 19:24
  * @Description: getter
  */
+@SupportedSourceVersion(SourceVersion.RELEASE_8)
+@SupportedAnnotationTypes("com.fest.exam.lombok.annotation.*")
 public class GetterProcessor extends AbstractProcessor {
 
     private Messager messager;
@@ -36,6 +39,7 @@ public class GetterProcessor extends AbstractProcessor {
         this.treeMaker = TreeMaker.instance(context);
         this.trees = JavacTrees.instance(processingEnv);
         this.names = Names.instance(context);
+        System.out.println("调用GettingProcessor#init");
 
     }
 
