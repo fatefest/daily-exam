@@ -13,7 +13,7 @@ dubbo:
   protocols:
     dubbo:
       name: dubbo
-      port: -1
+      port: 20811
     rest:
       name: rest
       port: 9090

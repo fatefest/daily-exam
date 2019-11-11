@@ -16,3 +16,5 @@ spring:
 dubbo:
   cloud:
     subscribed-services: service-provider
+  consumer:
+    check: false
