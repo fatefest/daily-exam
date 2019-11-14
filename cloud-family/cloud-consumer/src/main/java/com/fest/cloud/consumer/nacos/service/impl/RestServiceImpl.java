@@ -1,6 +1,6 @@
 package com.fest.cloud.consumer.nacos.service.impl;
 
-import com.fest.cloud.consumer.nacos.service.TestService;
+import com.fest.cloud.consumer.nacos.service.RestService;
 import org.springframework.stereotype.Service;
 
 /**
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
  * @Description: test
  */
 @Service
-public class TestServiceImpl implements TestService {
+public class RestServiceImpl implements RestService {
 
 
     @Override

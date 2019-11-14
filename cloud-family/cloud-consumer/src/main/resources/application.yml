@@ -12,6 +12,14 @@ spring:
     nacos:
       discovery:
         server-addr: ${nacos.addr}:${nacos.port}
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.2.18:3306/mytest?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8
+    username: yunche
+    password: 123456
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
 
 dubbo:
   cloud:
