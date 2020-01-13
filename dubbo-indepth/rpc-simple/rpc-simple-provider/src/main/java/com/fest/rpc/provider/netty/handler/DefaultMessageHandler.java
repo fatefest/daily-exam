@@ -15,6 +15,7 @@ public class DefaultMessageHandler extends SimpleChannelInboundHandler {
     @Override
     public void handlerAdded(ChannelHandlerContext ctx){
         System.out.println(ctx.channel().remoteAddress()+"连接进来了!");
+        ctx.writeAndFlush("你好呀! "+ctx.channel().remoteAddress());
     }
 
     @Override

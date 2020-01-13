@@ -6,8 +6,7 @@ import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import io.netty.handler.codec.DelimiterBasedFrameDecoder;
-import io.netty.handler.codec.Delimiters;
+import io.netty.handler.codec.*;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
 
@@ -41,14 +40,21 @@ public class DiscardClient{
             b.handler(new ChannelInitializer<SocketChannel>() {
                 @Override
                 public void initChannel(SocketChannel ch) throws Exception {
-                    ch.pipeline().addLast(new DelimiterBasedFrameDecoder(8192, Delimiters.lineDelimiter()));
-                    ch.pipeline().addLast(new StringEncoder());
+//                    ch.pipeline().addLast(new DelimiterBasedFrameDecoder(8192, Delimiters.lineDelimiter()));
+//                    ch.pipeline().addLast(new LineBasedFrameDecoder(1024));
+//                    ch.pipeline().addLast(new StringEncoder());
+//                    ch.pipeline().addLast(new StringDecoder());
+                    ch.pipeline().addLast(new LengthFieldBasedFrameDecoder(65535,0,2,0,2));
                     ch.pipeline().addLast(new StringDecoder());
+                    ch.pipeline().addLast(new LengthFieldPrepender(2));
+                    ch.pipeline().addLast(new StringEncoder());
                     ch.pipeline().addLast(new ClientDefaultHandler());
                 }
             });
             // Start the client.
             this.channel = b.connect(host, port).sync().channel();
+
+            channel.closeFuture().sync();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -63,13 +69,7 @@ public class DiscardClient{
 
     public static void main(String[] args) {
         DiscardClient discardClient = new DiscardClient("127.0.0.1",8088);
-        new Thread(()->discardClient.connect()).start();
-        try {
-            Thread.sleep(5000);
-            discardClient.send("我开始了！！");
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-//        discardClient.send("123456");
+        discardClient.connect();
+        discardClient.send("我开始了！！");
     }
 }

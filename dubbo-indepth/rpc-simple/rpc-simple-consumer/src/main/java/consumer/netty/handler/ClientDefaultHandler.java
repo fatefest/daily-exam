@@ -14,4 +14,16 @@ public class ClientDefaultHandler extends SimpleChannelInboundHandler {
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, Object o) throws Exception {
         System.out.println("客户端收到消息："+o);
     }
+
+    @Override
+    public void channelActive(ChannelHandlerContext ctx){
+        for (int i = 0; i < 100; i++) {
+            ctx.writeAndFlush("我连接进来了！"+i);
+        }
+    }
+    
+    @Override
+    public void channelInactive(ChannelHandlerContext ctx){
+        System.out.println("断开连接");
+    }
 }
